@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A&A Auto Manual</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">A&A Auto Manual</div>
+    <div class="nav-list">
+      <a class="outline" href="pages/login.html">Login</a>
+      <a class="primary-btn" href="pages/register.html">Register</a>
+    </div>
+  </header>
+
+  <main class="section">
+    <div class="container youtube-layout">
+      <aside class="sidebar">
+        <p class="sidebar-title">Browse</p>
+        <a class="sidebar-link active" href="#">Dashboard</a>
+        <a class="sidebar-link" href="pages/login.html">Login</a>
+        <a class="sidebar-link" href="pages/register.html">Register</a>
+        <a class="sidebar-link" href="pages/profile.html">Profile</a>
+        <a class="sidebar-link" href="pages/brand.html?brandId=toyota">Toyota</a>
+        <a class="sidebar-link" href="pages/brand.html?brandId=suzuki">Suzuki</a>
+        <a class="sidebar-link" href="pages/brand.html?brandId=mitsubishi">Mitsubishi</a>
+        <a class="sidebar-link" href="pages/brand.html?brandId=isuzu">Isuzu</a>
+      </aside>
+
+      <section class="youtube-content">
+        <section class="hero-banner">
+          <div class="hero-banner-body">
+            <span class="badge">A&A Auto Manual</span>
+            <h1>Reliable automotive manuals for every model.</h1>
+            <p>Explore troubleshooting guides, maintenance plans, and every brand’s service info in a clean, YouTube-inspired dashboard layout.</p>
+            <div class="video-toolbar">
+              <div class="chips">
+                <span class="chip active">Featured</span>
+                <span class="chip">Toyota</span>
+                <span class="chip">Suzuki</span>
+                <span class="chip">Mitsubishi</span>
+                <span class="chip">Isuzu</span>
+              </div>
+              <div class="nav-actions">
+                <a class="btn primary-btn" href="pages/login.html">Login</a>
+                <a class="btn outline" href="pages/register.html">Register</a>
+              </div>
+            </div>
+          </div>
+          <div class="hero-banner-thumb">Watch your vehicle knowledge grow with guided manuals.</div>
+        </section>
+
+        <section>
+          <div class="page-header">
+            <div>
+              <h2 class="section-title">Recommended Brands</h2>
+              <p class="hero-subtitle">Popular brands selected for quick access to manuals and guides.</p>
+            </div>
+          </div>
+          <div id="brand-grid" class="video-grid"></div>
+        </section>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Built for professional automotive service, modern maintenance, and troubleshooting support.</p>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { seedData, collection, getDocs, db } from './js/firebase.js';
+
+    const brandGrid = document.getElementById('brand-grid');
+
+    function renderBrandCards(brands) {
+      brandGrid.innerHTML = '';
+      brands.forEach((brand) => {
+        const card = document.createElement('article');
+        card.className = 'brand-card';
+        card.innerHTML = `
+          <div class="brand-logo">${brand.name.charAt(0)}</div>
+          <h3>${brand.name}</h3>
+          <p>${brand.description}</p>
+          <a class="btn outline" href="pages/brand.html?brandId=${brand.id}">View Manuals</a>
+        `;
+        brandGrid.appendChild(card);
+      });
+    }
+
+    async function loadBrands() {
+      await seedData();
+      const snapshot = await getDocs(collection(db, 'brands'));
+      const brands = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      renderBrandCards(brands);
+    }
+
+    loadBrands();
+  </script>
+</body>
+</html>

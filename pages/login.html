@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | A&A Auto Manual</title>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">A&A Auto Manual</div>
+    <div class="nav-list">
+      <a class="outline" href="../index.html">Home</a>
+      <a class="primary-btn" href="register.html">Register</a>
+    </div>
+  </header>
+  <main class="section">
+    <div class="container">
+      <div class="auth-card">
+        <div class="page-header">
+          <div>
+            <h1>Login</h1>
+            <p class="hero-subtitle">Access your dashboard using Firestore-only authentication.</p>
+          </div>
+        </div>
+        <form id="login-form" class="form-grid">
+          <div class="input-group">
+            <label for="identifier">Username or Email</label>
+            <input id="identifier" type="text" required placeholder="Enter username or email" />
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" required placeholder="Enter your password" />
+          </div>
+          <button type="submit" class="btn primary-btn">Login</button>
+          <p id="auth-message" class="message"></p>
+        </form>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="container">
+      <p>New here? <a href="register.html">Create an account</a>.</p>
+    </div>
+  </footer>
+  <script type="module" src="../js/auth.js"></script>
+</body>
+</html>
